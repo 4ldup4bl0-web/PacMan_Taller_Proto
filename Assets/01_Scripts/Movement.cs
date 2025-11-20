@@ -8,14 +8,14 @@ public class Movement : MonoBehaviour
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
 
-    public Rigidbody2D rb { get; private set; }
+    public Rigidbody2D rgby { get; private set; }
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
     public Vector3 startingPosition { get; private set; }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rgby = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
     }
 
@@ -30,7 +30,7 @@ public class Movement : MonoBehaviour
         direction = initialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
-        rb.isKinematic = false;
+        rgby.isKinematic = false;
         enabled = true;
     }
 
@@ -46,10 +46,10 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 position = rb.position;
+        Vector2 position = rgby.position;
         Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
 
-        rb.MovePosition(position + translation);
+        rgby.MovePosition(position + translation);
     }
 
     public void SetDirection(Vector2 direction, bool forced = false)
