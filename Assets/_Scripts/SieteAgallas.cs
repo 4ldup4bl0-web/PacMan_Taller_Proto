@@ -2,45 +2,55 @@ using UnityEngine;
 
 public class SieteAgallas : MonoBehaviour
 {
-    public float extraChaseTime = 5f; // Puedes ajustar este valor en el Inspector
+    // VARIABLES DE PERSISTENCIA
+    public float extraChaseTime = 5f;
 
-    // Cambiar al nombre de movimiento de los enemigos
-    private Enemy chaseScript;
+    // REFERENCIAS DE SCRIPTS
+    private RandomMovement randomMovementScript; // Movimiento aleatorio y detección de pared
+    private EnemyFoundYou chaseScript;              // Detección de jugador y persecución
+    private float originalDetectionTime;            // Tiempo de olvido base
 
     private void Awake()
     {
-        // 1. Obtener la referencia del script de persecución
-        chaseScript = GetComponent<Enemy>();
+        randomMovementScript = GetComponent<RandomMovement>();
+        chaseScript = GetComponent<EnemyFoundYou>();
 
-        if (chaseScript == null)
+        if (chaseScript == null || randomMovementScript == null)
         {
-            enabled = false; // Desactiva este script si falta el componente principal
+            enabled = false;
+            Debug.LogError("SieteAgallas requiere los scripts 'EnemigoAleatorio' y 'EnemyFoundYou'.");
             return;
         }
 
-        // 2. Aumentar el tiempo de reinicio de la persecución
-        // La variable de movimiento de los enemigos debe ser pública para ser modificada por este script
+        // Guardar el tiempo de olvido original de EnemyFoundYou
+        originalDetectionTime = chaseScript.forgetTime;
 
-        // Si tu script tiene una función para establecer este tiempo, úsala:
-        // chaseScript.SetResetTime(chaseScript.GetResetTime() + extraChaseTime);
+        // Aplicar la persistencia y configurar el estado inicial
         ApplyPersistence();
-    }
 
-    // Si el script común de cada enemigo usa un método para reiniciar el temporizador
-    // cuando el jugador sale del rango, asegúrate de que use este nuevo valor.
+        // El enemigo comienza moviéndose aleatoriamente
+        SetMovementState(true);
+    }
 
     private void ApplyPersistence()
     {
-        // **ESTO ES UN EJEMPLO. DEBES AJUSTARLO AL NOMBRE DE TU PROPIA VARIABLE**
-
-        // Simulación de la modificación de la variable:
-        // float originalTime = chaseScript.chaseResetTime; 
-        // chaseScript.chaseResetTime = originalTime + extraChaseTime;
-        // la mejor práctica es usar un método público en el script base.
-
+        // Aumentar el tiempo de olvido en el script de persecución
+        chaseScript.forgetTime = originalDetectionTime + extraChaseTime;
     }
 
-    // Opcional: Si el script de persecución tiene un evento o método para
-    // cuando entra en el estado de "Visto", podrías modificar el tiempo
-    // *justo en ese momento* y luego restaurarlo al salir.
+    // Método para cambiar entre el estado aleatorio y el de persecución
+    public void SetMovementState(bool isRandom)
+    {
+        // La lógica de movimiento aleatorio (EnemigoAleatorio) se activa/desactiva
+        randomMovementScript.enabled = isRandom;
+
+        // El script de persecución (EnemyFoundYou) debe permanecer ACTIVO para poder detectar al jugador
+        // incluso mientras patrulla.
+
+        if (isRandom)
+        {
+            // Volver a movimiento aleatorio: forzamos inmediatamente una dirección libre
+            randomMovementScript.ForceNewRandomDirection();
+        }
+    }
 }

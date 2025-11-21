@@ -3,7 +3,7 @@ using UnityEngine;
 public class Tigre : MonoBehaviour
 {
     public Transform playerLocation;
-    public float movementSpeed = 9f;// public o private con la velocidad base del enemigo
+    public float movementSpeed = 4f;
 
     private void Awake()
     {
@@ -21,25 +21,34 @@ public class Tigre : MonoBehaviour
     {
         if (playerLocation != null)
         {
-            // Posición del jugador
             Vector2 currentPosition = transform.position;
             Vector2 targetPosition = playerLocation.position;
 
-            // El enemigo va hacia la posición actual del jugador
-            transform.position = Vector2.MoveTowards(
-                currentPosition,
-                targetPosition,
-                movementSpeed * Time.deltaTime
-            );
-
-            // Rotar el sprite para que mire en la dirección del movimiento
             Vector2 lookDirection = targetPosition - currentPosition;
-            if (lookDirection != Vector2.zero)
+            float distanceX = Mathf.Abs(lookDirection.x);
+            float distanceY = Mathf.Abs(lookDirection.y);
+
+            Vector2 movement = Vector2.zero;
+
+            if (distanceX >= distanceY)
             {
-                float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                float directionX = Mathf.Sign(lookDirection.x);
+
+                movement = new Vector2(directionX, 0);
+            }
+            else
+            {
+                float directionY = Mathf.Sign(lookDirection.y);
+
+                movement = new Vector2(0, directionY);
             }
 
+            transform.position += (Vector3)(movement * movementSpeed * Time.deltaTime);
+            if (movement != Vector2.zero)
+            {
+                float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            }
         }
     }
 }
