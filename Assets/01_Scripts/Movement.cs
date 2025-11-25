@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
     public Vector2 nextDirection { get; private set; }
     public Vector3 startingPosition { get; private set; }
 
-    // DASH CONFIG
+
     private bool canDash = true;
     private bool isDashing;
     public float dashingPower = 60f;
@@ -26,10 +26,10 @@ public class Movement : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    // Última dirección válida para el dash
+
     private Vector2 lastDirection = Vector2.right;
 
-    // ✅ Layers para atravesar paredes
+
     private int normalLayer;
     [SerializeField] private string dashLayerName = "GhostDash";
 
@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
-        normalLayer = gameObject.layer; // Guarda layer actual
+        normalLayer = gameObject.layer; 
     }
 
     private void Start()
@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        // ✅ Solo direcciones cardinales
+
         if (Mathf.Abs(horizontal) > 0 && Mathf.Abs(vertical) == 0)
             lastDirection = new Vector2(horizontal, 0);
         else if (Mathf.Abs(vertical) > 0 && Mathf.Abs(horizontal) == 0)
@@ -123,7 +123,7 @@ public class Movement : MonoBehaviour
 
         tr.emitting = true;
 
-        // ✅ Cambia temporalmente al layer sin colisión
+
         gameObject.layer = LayerMask.NameToLayer(dashLayerName);
 
         float originalGravity = rb.gravityScale;
@@ -137,7 +137,6 @@ public class Movement : MonoBehaviour
         rb.gravityScale = originalGravity;
         isDashing = false;
 
-        // ✅ Recupera layer normal
         gameObject.layer = normalLayer;
 
         yield return new WaitForSeconds(dashingCooldown);
