@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
@@ -13,10 +14,30 @@ public class Movement : MonoBehaviour
     public Vector2 nextDirection { get; private set; }
     public Vector3 startingPosition { get; private set; }
 
+    // DASH CONFIG
+    private bool canDash = true;
+    private bool isDashing;
+    public float dashingPower = 60f;
+    public float dashingTime = 0.35f;
+    public float dashingCooldown = 5f;
+
+    [SerializeField] private TrailRenderer tr;
+
+    private float horizontal;
+    private float vertical;
+
+    // Última dirección válida para el dash
+    private Vector2 lastDirection = Vector2.right;
+
+    // ✅ Layers para atravesar paredes
+    private int normalLayer;
+    [SerializeField] private string dashLayerName = "GhostDash";
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
+        normalLayer = gameObject.layer; // Guarda layer actual
     }
 
     private void Start()
@@ -30,33 +51,46 @@ public class Movement : MonoBehaviour
         direction = initialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
-        rb.isKinematic = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
         enabled = true;
     }
 
     private void Update()
     {
-        // Try to move in the next direction while it's queued to make movements
-        // more responsive
+        if (isDashing) return;
+
         if (nextDirection != Vector2.zero)
         {
             SetDirection(nextDirection);
+        }
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+
+        // ✅ Solo direcciones cardinales
+        if (Mathf.Abs(horizontal) > 0 && Mathf.Abs(vertical) == 0)
+            lastDirection = new Vector2(horizontal, 0);
+        else if (Mathf.Abs(vertical) > 0 && Mathf.Abs(horizontal) == 0)
+            lastDirection = new Vector2(0, vertical);
+
+        // Activar dash
+        if (Input.GetKeyDown(KeyCode.Q) && canDash)
+        {
+            StartCoroutine(DoDash());
         }
     }
 
     private void FixedUpdate()
     {
+        if (isDashing) return;
+
         Vector2 position = rb.position;
         Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
-
         rb.MovePosition(position + translation);
     }
 
     public void SetDirection(Vector2 direction, bool forced = false)
     {
-        // Only set the direction if the tile in that direction is available
-        // otherwise we set it as the next direction so it'll automatically be
-        // set when it does become available
         if (forced || !Occupied(direction))
         {
             this.direction = direction;
@@ -70,9 +104,44 @@ public class Movement : MonoBehaviour
 
     public bool Occupied(Vector2 direction)
     {
-        // If no collider is hit then there is no obstacle in that direction
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * 0.75f, 0f, direction, 1.5f, obstacleLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(
+            transform.position,
+            Vector2.one * 0.75f,
+            0f,
+            direction,
+            1.5f,
+            obstacleLayer
+        );
+
         return hit.collider != null;
     }
 
+    IEnumerator DoDash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        tr.emitting = true;
+
+        // ✅ Cambia temporalmente al layer sin colisión
+        gameObject.layer = LayerMask.NameToLayer(dashLayerName);
+
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+
+        rb.linearVelocity = lastDirection * dashingPower;
+
+        yield return new WaitForSeconds(dashingTime);
+
+        tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+
+        // ✅ Recupera layer normal
+        gameObject.layer = normalLayer;
+
+        yield return new WaitForSeconds(dashingCooldown);
+
+        canDash = true;
+    }
 }
