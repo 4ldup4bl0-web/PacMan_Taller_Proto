@@ -3,6 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class Pacman : MonoBehaviour
 {
+    // VARIABLES AÑADIDAS PARA EL POWER-UP
+    public Sprite normalSprite;      // Asigna el sprite normal en el Inspector
+    public Sprite powerUpSprite;     // Asigna el sprite potenciado en el Inspector
+    
     [SerializeField]
     //private AnimatedSprite deathSequence;
     private SpriteRenderer spriteRenderer;
@@ -14,11 +18,14 @@ public class Pacman : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider = GetComponent<CircleCollider2D>();
         movement = GetComponent<Movement>();
+        
+        // Inicializar con el sprite normal
+        spriteRenderer.sprite = normalSprite;
     }
 
     private void Update()
     {
-        // Set the new direction based on the current input
+        // ... (Lógica de movimiento existente) ...
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             movement.SetDirection(Vector2.up);
@@ -40,6 +47,21 @@ public class Pacman : MonoBehaviour
         float angle = Mathf.Atan2(movement.direction.y, movement.direction.x);
         transform.rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.forward);
     }
+    
+    // NUEVO MÉTODO PÚBLICO: Cambia el sprite del jugador
+    public void SetPowerUpVisuals(bool active)
+    {
+        if (active)
+        {
+            spriteRenderer.sprite = powerUpSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = normalSprite;
+        }
+    }
+    
+    // ... (El resto de métodos ResetState y DeathSequence permanecen iguales) ...
 
     public void ResetState()
     {
@@ -49,6 +71,9 @@ public class Pacman : MonoBehaviour
         //deathSequence.enabled = false;
         movement.ResetState();
         gameObject.SetActive(true);
+        
+        // Asegurar que el sprite sea el normal al resetear
+        spriteRenderer.sprite = normalSprite; 
     }
 
     public void DeathSequence()
@@ -60,5 +85,4 @@ public class Pacman : MonoBehaviour
         //deathSequence.enabled = true;
         //deathSequence.Restart();
     }
-
 }
