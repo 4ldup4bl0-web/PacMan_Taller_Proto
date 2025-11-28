@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2044176343898407174}
   - component: {fileID: 2871127195920044397}
   - component: {fileID: 7461204471656723049}
+  - component: {fileID: 5630454499704616894}
   m_Layer: 0
   m_Name: Leon Marino
   m_TagString: Untagged
@@ -124,12 +125,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.47269496, y: -0.1474881}
-  m_Size: {x: 3.8184974, y: 1.4353666}
+  m_Offset: {x: 0.24488421, y: -0.20444113}
+  m_Size: {x: 4.798106, y: 2.1871643}
   m_Direction: 1
 --- !u!95 &1177372972485504890
 Animator:
@@ -245,3 +246,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsValue: 250
   spawner: {fileID: 0}
+--- !u!70 &5630454499704616894
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610927327665522121}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.27906626, y: -0.21642078}
+  m_Size: {x: 4.5018697, y: 1.8552585}
+  m_Direction: 1
