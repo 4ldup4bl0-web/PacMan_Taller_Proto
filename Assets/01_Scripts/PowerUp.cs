@@ -2,22 +2,19 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verificar si el objeto que colisiona es el jugador
-        if (other.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            // Obtener el script PlayerState del jugador
-            PlayerState playerState = other.GetComponent<PlayerState>();
+            Chainsaw chainsaw = collision.GetComponent<Chainsaw>();
 
-            if (playerState != null)
+            if (chainsaw != null)
             {
-                // Activar el power-up en el jugador
-                playerState.ActivatePowerUp();
-
-                // Destruir el power-up de la escena
-                Destroy(gameObject);
+                chainsaw.ActivatePowerUp();
             }
+
+            // Destruir power-up
+            Destroy(gameObject);
         }
     }
 }

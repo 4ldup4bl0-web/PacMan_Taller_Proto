@@ -1,42 +1,37 @@
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class EnemyElimination : MonoBehaviour
 {
-    public int pointsValue;
-
+    public int pointsValue = 100;
+    public EnemySpawner spawner;
     private Chainsaw playerState;
 
     private void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
-        {
             playerState = player.GetComponent<Chainsaw>();
-        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // 1. Verificar si colisionÛ con el jugador
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // 2. Verificar si el jugador tiene el Power-Up
-            if (playerState != null && playerState.hasPowerUp)
-            {
-                if (ScoreManager.Instance != null)
-                {
-                    ScoreManager.Instance.AddPoints(pointsValue);
-                }
+        if (!collision.CompareTag("Player"))
+            return;
 
-                // Puedes cambiar esto por un efecto de "reaparecer en base" o animaciÛn de fantasma
-                Destroy(gameObject);
-            }
-            else
-            {
-                // AquÌ irÌa la lÛgica de daÒo al jugador
-                Debug.Log("El jugador ha sido golpeado por el enemigo.");
-            }
+        if (playerState == null)
+            return;
+
+        if (playerState.hasPowerUp)
+        {
+            Debug.Log("Enemigo destruido.");
+            ScoreManager.Instance.AddPoints(pointsValue);
+
+            spawner.Respawn();  // ‚Üê AVISA AL SPAWNER
+            Destroy(gameObject); // ‚Üê Se destruye por completo
+        }
+        else
+        {
+            Debug.Log("Jugador golpeado.");
         }
     }
 }

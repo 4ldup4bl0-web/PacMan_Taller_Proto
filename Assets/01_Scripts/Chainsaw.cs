@@ -1,36 +1,54 @@
 using UnityEngine;
+using UnityEngine;
 
 public class Chainsaw : MonoBehaviour
 {
-    // Variables para el Power-Up
+    [Header("Power Up")]
     public bool hasPowerUp = false;
-    public float powerUpDuration = 10f;
+    public float powerUpDuration = 8f;
 
-    private float powerUpTimer = 0f;
+    private float timer;
 
-    // Asumiendo que hay una colisi�n/trigger que activa este power-up (ej. comer una bolita de poder)
-    public void ActivatePowerUp()
+    [Header("Animación")]
+    public Animator animator;
+
+    private void Awake()
     {
-        hasPowerUp = true;
-        powerUpTimer = powerUpDuration;
-        Debug.Log("�Power-Up activado! Tiempo restante: " + powerUpDuration);
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (hasPowerUp)
         {
-            powerUpTimer -= Time.deltaTime;
-            if (powerUpTimer <= 0)
+            timer -= Time.deltaTime;
+
+            if (timer <= 0)
             {
                 DeactivatePowerUp();
             }
         }
     }
 
+    public void ActivatePowerUp()
+    {
+        hasPowerUp = true;
+        timer = powerUpDuration;
+
+        // Activar animación especial
+        animator.SetBool("IsPowered", true);
+
+        Debug.Log("Power-Up ACTIVADO");
+    }
+
     private void DeactivatePowerUp()
     {
         hasPowerUp = false;
-        Debug.Log("Power-Up ha terminado.");
+
+        // Volver a la animación normal
+        animator.SetBool("IsPowered", false);
+
+        Debug.Log("Power-Up TERMINÓ");
     }
 }
