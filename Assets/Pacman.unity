@@ -22545,6 +22545,10 @@ PrefabInstance:
       propertyPath: spawner
       value: 
       objectReference: {fileID: 116384472}
+    - target: {fileID: 3032256084800439486, guid: cd966120d631b8b46ae76e3f438690ef, type: 3}
+      propertyPath: pointsValue
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 4275409362721434077, guid: cd966120d631b8b46ae76e3f438690ef, type: 3}
       propertyPath: playerLocation
       value: 
