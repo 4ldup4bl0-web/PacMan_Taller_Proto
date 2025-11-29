@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyFoundYou : MonoBehaviour
 {
-    // VARIABLES DE PERSECUCIÓN
     public Transform playerLocation;
     public float baseMovementSpeed = 5f;
     public float chaseSpeedMultiplier = 1.5f;
@@ -38,7 +37,6 @@ public class EnemyFoundYou : MonoBehaviour
 
         if (playerDetected)
         {
-            // El jugador está en rango: inicia/mantiene persecución
             chaseTimer = forgetTime;
             currentMovementSpeed = baseMovementSpeed * chaseSpeedMultiplier;
             lastKnownPlayerPosition = playerLocation.position;
@@ -47,12 +45,7 @@ public class EnemyFoundYou : MonoBehaviour
 
         if (chaseTimer > 0)
         {
-            // 1. ESTADO DE PERSECUCION ACTIVO (Aún tiene memoria)
             chaseTimer -= Time.deltaTime;
-
-            // =======================================================
-            // CORRECCIÓN 1: MOVIMIENTO ORTOGONAL EN PERSECUCIÓN
-            // =======================================================
             Vector2 currentPosition = transform.position;
             Vector2 targetPosition = lastKnownPlayerPosition;
             Vector2 lookDirection = targetPosition - currentPosition;
@@ -72,23 +65,18 @@ public class EnemyFoundYou : MonoBehaviour
                 movement = new Vector2(0, directionY);
             }
 
-            // Aplicar el movimiento
             transform.position += (Vector3)(movement * currentMovementSpeed * Time.deltaTime);
 
-            // Rotar el sprite
             if (movement != Vector2.zero)
             {
                 float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             }
-            // =======================================================
 
             if (chaseTimer <= 0)
             {
-                // El tiempo de persistencia terminó
                 currentMovementSpeed = baseMovementSpeed;
 
-                // CORRECCIÓN 2: Limpieza para evitar bugs
                 lastKnownPlayerPosition = Vector2.zero;
 
                 controller.SetMovementState(true); // Vuelve a movimiento Aleatorio y fuerza el cambio de dirección
