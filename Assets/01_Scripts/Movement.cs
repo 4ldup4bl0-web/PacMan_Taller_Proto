@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
 
-    public Rigidbody2D rb { get; private set; }
+    public Rigidbody2D rgby { get; private set; }
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
     public Vector3 startingPosition { get; private set; }
@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rgby = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
         normalLayer = gameObject.layer; 
     }
@@ -51,6 +51,7 @@ public class Movement : MonoBehaviour
         direction = initialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
+        rgby.isKinematic = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         enabled = true;
     }
@@ -82,6 +83,10 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Vector2 position = rgby.position;
+        Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
+
+        rgby.MovePosition(position + translation);
         if (isDashing) return;
 
         Vector2 position = rb.position;
