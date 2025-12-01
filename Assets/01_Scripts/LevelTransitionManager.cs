@@ -6,7 +6,12 @@ public class LevelTransitionManager : MonoBehaviour
     public string[] levelScenes; // SOLO niveles
     public int targetScore = 50;
     public float waitTime = 3f;
+
+    [Header("Audio")]
+    public AudioSource backgroundMusic;     // Música que suena durante el nivel
     public AudioSource levelCompleteAudio;
+
+    public float waitAfterWin = 2f;
 
     private bool levelEnding = false;
 
@@ -23,9 +28,16 @@ public class LevelTransitionManager : MonoBehaviour
         levelEnding = true;
         Time.timeScale = 0f;
 
-        if (levelCompleteAudio != null)
-            levelCompleteAudio.Play();
+        if (backgroundMusic != null)
+            backgroundMusic.Stop();
 
+        float waitTime = waitAfterWin;
+
+        if (levelCompleteAudio != null && levelCompleteAudio.clip != null)
+        {
+            levelCompleteAudio.Play();
+            waitTime = Mathf.Max(waitAfterWin, levelCompleteAudio.clip.length);
+        }
         yield return new WaitForSecondsRealtime(waitTime);
 
         Time.timeScale = 1f;

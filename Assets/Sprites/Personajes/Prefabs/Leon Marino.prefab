@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2871127195920044397}
   - component: {fileID: 7461204471656723049}
   - component: {fileID: 5630454499704616894}
+  - component: {fileID: 1483508041522936480}
   m_Layer: 0
   m_Name: Leon Marino
   m_TagString: Untagged
@@ -283,3 +284,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0.27906626, y: -0.21642078}
   m_Size: {x: 4.5018697, y: 1.8552585}
   m_Direction: 1
+--- !u!114 &1483508041522936480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610927327665522121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ed2ba673e6a64448b9122e4ef430c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: 1.2
+  enabledOnStart: 0

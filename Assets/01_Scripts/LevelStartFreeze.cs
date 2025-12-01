@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class LevelStartFreeze : MonoBehaviour
 {
-    [Header("Tiempo de congelamiento")]
+    [Header("Tiempo de congelamiento mínimo")]
     public float freezeDuration = 2f;
 
-    [Header("Audio de inicio de nivel")]
-    public AudioSource startLevelAudio;
+    [Header("Audio")]
+    public AudioSource introMusic;     // Música de inicio
+    public AudioSource backgroundMusic; // Música de fondo
 
     void Start()
     {
@@ -18,21 +19,25 @@ public class LevelStartFreeze : MonoBehaviour
         // Pausar todo
         Time.timeScale = 0f;
 
-        // Reproducir música si existe
-        if (startLevelAudio != null)
-            startLevelAudio.Play();
-
-        // Esperar lo que dure la música o el freezeDuration, lo que sea más largo
         float waitTime = freezeDuration;
 
-        if (startLevelAudio != null && startLevelAudio.clip != null)
+        // Reproducir música de intro si existe
+        if (introMusic != null && introMusic.clip != null)
         {
-            waitTime = Mathf.Max(freezeDuration, startLevelAudio.clip.length);
+            introMusic.Play();
+
+            // Esperar lo que dure la música o freezeDuration (lo que sea mayor)
+            waitTime = Mathf.Max(freezeDuration, introMusic.clip.length);
         }
 
+        // Espera con Time.timeScale = 0
         yield return new WaitForSecondsRealtime(waitTime);
 
-        // Volver a la normalidad
+        // Volver al tiempo normal
         Time.timeScale = 1f;
+
+        // Iniciar música de fondo después de la intro
+        if (backgroundMusic != null)
+            backgroundMusic.Play();
     }
 }

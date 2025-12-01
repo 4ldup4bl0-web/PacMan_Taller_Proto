@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7308344587618588833}
   - component: {fileID: 2037004066064760724}
   - component: {fileID: 6169694287180091590}
+  - component: {fileID: 3688480296194119164}
   m_Layer: 0
   m_Name: Shark 7 agallas
   m_TagString: Enemy
@@ -243,3 +244,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsValue: 250
   spawner: {fileID: 0}
+--- !u!114 &3688480296194119164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9128733838321063497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ed2ba673e6a64448b9122e4ef430c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: 1.2
+  enabledOnStart: 0
