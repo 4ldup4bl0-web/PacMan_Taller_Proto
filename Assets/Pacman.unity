@@ -631,12 +631,20 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5222343221299641212, guid: 93e0e73b37ca8c944bb019d37b87dcc2, type: 3}
+      propertyPath: levelScenes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222343221299641212, guid: 93e0e73b37ca8c944bb019d37b87dcc2, type: 3}
       propertyPath: 'levelScenes.Array.data[0]'
-      value: MainMenu
+      value: Pacman
       objectReference: {fileID: 0}
     - target: {fileID: 5222343221299641212, guid: 93e0e73b37ca8c944bb019d37b87dcc2, type: 3}
       propertyPath: 'levelScenes.Array.data[1]'
       value: PacMan_Taller_Proto
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222343221299641212, guid: 93e0e73b37ca8c944bb019d37b87dcc2, type: 3}
+      propertyPath: 'levelScenes.Array.data[2]'
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 7276880334332697320, guid: 93e0e73b37ca8c944bb019d37b87dcc2, type: 3}
       propertyPath: m_Name
