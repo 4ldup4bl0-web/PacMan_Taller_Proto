@@ -46,7 +46,8 @@ public class LevelTransitionManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("NO HAY MÁS NIVELES.");
+                    Debug.Log("Último nivel alcanzado. Reiniciando ciclo...");
+                    SceneManager.LoadScene(levelScenes[0]);
                 }
                 yield break;
             }

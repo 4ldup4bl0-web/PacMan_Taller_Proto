@@ -6,7 +6,8 @@ public class GameOverManager : MonoBehaviour
     public static GameOverManager Instance { get; private set; }
 
     public GameObject gameOverPanel; // panel con UI del game over
-    public float restartDelay = 0.5f;
+
+    public AudioSource gameOverAudio;
 
     private void Awake()
     {
@@ -20,6 +21,9 @@ public class GameOverManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
         }
+        if (gameOverAudio != null)
+            gameOverAudio.Play();
+    
         else
         {
             Debug.LogWarning("GameOverManager: No hay panel asignado.");
@@ -29,11 +33,6 @@ public class GameOverManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void RestartLevel()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     public void GoToMainMenu(string sceneName)
     {

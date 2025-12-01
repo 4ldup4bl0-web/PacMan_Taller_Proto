@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: debbfa3072dd0014999bd771a82560a9
   - enabled: 1
+    path: Assets/Pacman.unity
+    guid: edbfd9beba7f81f469b1c981a659271b
+  - enabled: 1
     path: Assets/Scenes/PacMan_Taller_Proto.unity
     guid: d615dbe9a8ccefe41b2246a2d46e4ad5
   - enabled: 0
