@@ -27,7 +27,8 @@ public class EnemyElimination : MonoBehaviour
             ScoreManager.Instance.AddPoints(pointsValue);
 
             spawner.Respawn();  // ← AVISA AL SPAWNER
-            Destroy(gameObject); // ← Se destruye por completo
+            if (SFXManager.Instance != null) SFXManager.Instance.PlayEnemyEliminated();
+            Destroy(gameObject);
         }
         else
         {

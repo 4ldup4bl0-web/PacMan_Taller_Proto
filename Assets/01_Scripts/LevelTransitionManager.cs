@@ -18,7 +18,7 @@ public class LevelTransitionManager : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator LevelEndSequence()
+    public System.Collections.IEnumerator LevelEndSequence()
     {
         levelEnding = true;
         Time.timeScale = 0f;

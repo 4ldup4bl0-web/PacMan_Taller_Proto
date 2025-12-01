@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
         rgby.isKinematic = false;
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        rgby.bodyType = RigidbodyType2D.Dynamic;
         enabled = true;
     }
 
@@ -89,9 +89,6 @@ public class Movement : MonoBehaviour
         rgby.MovePosition(position + translation);
         if (isDashing) return;
 
-        Vector2 position = rb.position;
-        Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
-        rb.MovePosition(position + translation);
     }
 
     public void SetDirection(Vector2 direction, bool forced = false)
@@ -131,15 +128,15 @@ public class Movement : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer(dashLayerName);
 
-        float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0f;
+        float originalGravity = rgby.gravityScale;
+        rgby.gravityScale = 0f;
 
-        rb.linearVelocity = lastDirection * dashingPower;
+        rgby.linearVelocity = lastDirection * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 
         tr.emitting = false;
-        rb.gravityScale = originalGravity;
+        rgby.gravityScale = originalGravity;
         isDashing = false;
 
         gameObject.layer = normalLayer;

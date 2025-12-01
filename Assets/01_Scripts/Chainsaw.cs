@@ -72,6 +72,10 @@ public class Chainsaw : MonoBehaviour
         // Cambiar sprite a potenciado
         sr.sprite = powerUpSprite;
 
+        PowerUp.SetActive(true);
+        // sfx powerup
+        if (SFXManager.Instance != null) SFXManager.Instance.PlayPowerUp();
+
         Debug.Log("Power-Up ACTIVADO");
     }
 

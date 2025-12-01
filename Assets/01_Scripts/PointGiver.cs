@@ -8,6 +8,13 @@ public class PointGiver : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddPoints(pointsValue);
+                // sfx punto
+                if (SFXManager.Instance != null) SFXManager.Instance.PlayPoint();
+            }
             if (ScoreManager.Instance != null)
             {
                 ScoreManager.Instance.AddPoints(pointsValue);

@@ -41,6 +41,8 @@ public class Dash : MonoBehaviour
         canDash = false;
         isDashing = true;
 
+        if (SFXManager.Instance != null) SFXManager.Instance.PlayDash();
+
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
 
