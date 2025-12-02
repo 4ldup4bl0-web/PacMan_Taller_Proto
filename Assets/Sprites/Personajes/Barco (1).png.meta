@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 250
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -125,37 +125,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Barco (1)_0
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 383
-        width: 110
-        height: 98
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33b06db73f79e5800800000000000000
-      internalID: 603086472124697395
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Barco (1)_1
       rect:
         serializedVersion: 2
-        x: 23
-        y: 191
-        width: 722
-        height: 374
+        x: 12
+        y: 181
+        width: 729
+        height: 380
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,12 +150,12 @@ TextureImporter:
       name: Barco (1)_2
       rect:
         serializedVersion: 2
-        x: 779
-        y: 191
-        width: 734
-        height: 374
+        x: 778
+        y: 183
+        width: 739
+        height: 375
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -194,12 +172,12 @@ TextureImporter:
       name: Barco (1)_3
       rect:
         serializedVersion: 2
-        x: 1547
-        y: 191
-        width: 734
+        x: 1546
+        y: 190
+        width: 741
         height: 374
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -218,10 +196,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2315
         y: 191
-        width: 734
-        height: 374
+        width: 733
+        height: 371
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -238,7 +216,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e8b482eff9a7aee4f90cc76c7902c28e
     internalID: 0
     vertices: []
     indices: 
