@@ -3,12 +3,43 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;       // Prefab del enemigo
-    public Transform respawnPoint;       // Punto donde aparece
+    public GameObject enemyPrefab;
+    public Transform respawnPoint;
     public float respawnTime = 10f;
 
-    public void Respawn()
+    private bool enemyAlive = false;
+
+    private void Start()
     {
+        // FIX: si ya existe un enemigo en escena NO spawnear otro
+        EnemyElimination existing = FindObjectOfType<EnemyElimination>();
+
+        if (existing != null)
+        {
+            enemyAlive = true;
+            existing.spawner = this; // Asegura vínculo correcto
+            return; // ← NO spawneamos extra
+        }
+
+        SpawnEnemy();
+    }
+
+    private void SpawnEnemy()
+    {
+        if (enemyAlive) return;
+
+        GameObject newEnemy =
+            Instantiate(enemyPrefab, respawnPoint.position, Quaternion.identity);
+
+        newEnemy.GetComponent<EnemyElimination>().spawner = this;
+        enemyAlive = true;
+
+        Debug.Log("Enemigo creado.");
+    }
+
+    public void OnEnemyDeath()
+    {
+        enemyAlive = false;
         StartCoroutine(RespawnRoutine());
     }
 
@@ -17,12 +48,7 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Esperando respawn...");
         yield return new WaitForSeconds(respawnTime);
 
-        GameObject newEnemy =
-            Instantiate(enemyPrefab, respawnPoint.position, Quaternion.identity);
-
-        // Le asigno el spawner al nuevo enemigo
-        newEnemy.GetComponent<EnemyElimination>().spawner = this;
-
+        SpawnEnemy();
         Debug.Log("Enemigo respawneado correctamente.");
     }
 }

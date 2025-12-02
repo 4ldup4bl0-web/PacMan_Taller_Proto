@@ -26,7 +26,7 @@ public class EnemyElimination : MonoBehaviour
             Debug.Log("Enemigo destruido.");
             ScoreManager.Instance.AddPoints(pointsValue);
 
-            spawner.Respawn();  // ← AVISA AL SPAWNER
+            spawner.OnEnemyDeath(); // ← AVISA AL SPAWNER
             if (SFXManager.Instance != null) SFXManager.Instance.PlayEnemyEliminated();
             Destroy(gameObject);
         }
