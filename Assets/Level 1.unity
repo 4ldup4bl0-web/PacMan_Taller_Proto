@@ -4737,7 +4737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &946404856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11033,6 +11033,18 @@ PrefabInstance:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 1055701315}
+    - target: {fileID: 7379694389120370811, guid: 09c21e104700f3548b2457d884b13608, type: 3}
+      propertyPath: zoomSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379694389120370811, guid: 09c21e104700f3548b2457d884b13608, type: 3}
+      propertyPath: targetCamera
+      value: 
+      objectReference: {fileID: 379266490}
+    - target: {fileID: 7379694389120370811, guid: 09c21e104700f3548b2457d884b13608, type: 3}
+      propertyPath: freezeDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8973571148200660039, guid: 09c21e104700f3548b2457d884b13608, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.53504
