@@ -16,4 +16,12 @@ public class GlobalAudioController : MonoBehaviour
 
 
     }
+
+    public void RestoreAll()
+    {
+        mixer.SetFloat("BGMVolume", 0f);
+        mixer.SetFloat("SFXVolume", 0f);
+        mixer.SetFloat("VictoryVol", -80f);
+        mixer.SetFloat("GameOverVol", -80f);
+    }
 }
