@@ -17,10 +17,16 @@ public class GameOverManager : MonoBehaviour
 
     public void ShowGameOver()
     {
+        GlobalAudioController gc = FindFirstObjectByType<GlobalAudioController>();
+        if (gc != null)
+            gc.MuteAllExcept("GameOverVol");
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
         }
+
+
         if (gameOverAudio != null)
             gameOverAudio.Play();
     

@@ -31,6 +31,10 @@ public class LevelTransitionManager : MonoBehaviour
         if (backgroundMusic != null)
             backgroundMusic.Stop();
 
+        GlobalAudioController gc = FindFirstObjectByType<GlobalAudioController>();
+        if (gc != null)
+            gc.MuteAllExcept("VictoryVol");
+
         float waitTime = waitAfterWin;
 
         if (levelCompleteAudio != null && levelCompleteAudio.clip != null)
