@@ -17,10 +17,25 @@ public class GameOverManager : MonoBehaviour
 
     public void ShowGameOver()
     {
+        string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        if (scene.Contains("Level"))  // usa tus nombres reales
+        {
+            GlobalAudioController gc = FindFirstObjectByType<GlobalAudioController>();
+            if (gc != null)
+                gc.MuteAllExcept("GameOverVol");
+        }
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
+
+            Animator anim = gameOverPanel.GetComponent<Animator>();
+            if (anim != null)
+                anim.SetTrigger("Show");
         }
+
+
         if (gameOverAudio != null)
             gameOverAudio.Play();
     
@@ -37,6 +52,11 @@ public class GameOverManager : MonoBehaviour
     public void GoToMainMenu(string sceneName)
     {
         Time.timeScale = 1f;
+
+        GlobalAudioController gc = FindFirstObjectByType<GlobalAudioController>();
+        if (gc != null)
+            gc.RestoreAll();
+
         SceneManager.LoadScene(sceneName);
     }
 }
