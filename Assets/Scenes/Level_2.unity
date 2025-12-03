@@ -2984,6 +2984,10 @@ PrefabInstance:
       propertyPath: targetOrthographicSize
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4339570852886783170, guid: 9024e53672d4ebb40bf6496644ef9e44, type: 3}
+      propertyPath: playerHurtClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c1318aed9c32a34c992ecfce4e2e9cb, type: 3}
     - target: {fileID: 5998944311325144591, guid: 9024e53672d4ebb40bf6496644ef9e44, type: 3}
       propertyPath: gameOverPanel
       value: 
@@ -3010,7 +3014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6477930811207612380, guid: 9024e53672d4ebb40bf6496644ef9e44, type: 3}
       propertyPath: restoreDelay
-      value: 1.7
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 7589148719627971027, guid: 9024e53672d4ebb40bf6496644ef9e44, type: 3}
       propertyPath: m_Name

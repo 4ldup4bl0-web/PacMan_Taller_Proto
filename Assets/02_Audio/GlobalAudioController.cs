@@ -7,7 +7,7 @@ public class GlobalAudioController : MonoBehaviour
     public AudioMixer mixer;
 
     [Header("Restauración automática")]
-    public float restoreDelay = 3f;  // Tiempo antes de restaurar
+    public float restoreDelay = 1f;  // Tiempo antes de restaurar
 
     private Coroutine restoreRoutine;
 
