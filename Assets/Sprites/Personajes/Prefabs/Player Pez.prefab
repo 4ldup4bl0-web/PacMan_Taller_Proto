@@ -143,8 +143,8 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  dashingPower: 30
-  dashingTime: 0.35
+  dashingPower: 40
+  dashingTime: 0.4
   dashingCooldown: 5
   tr: {fileID: 4507638807899054971}
   dashLayerName: GhostDash
