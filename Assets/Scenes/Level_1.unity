@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 430903976}
   - component: {fileID: 430903975}
   - component: {fileID: 430903977}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Murallas insaltables
   m_TagString: Obstacles
   m_Icon: {fileID: 0}
