@@ -15,6 +15,11 @@ public class GameOverManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
     public void ShowGameOver()
     {
         string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;

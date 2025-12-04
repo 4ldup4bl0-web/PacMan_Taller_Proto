@@ -120,6 +120,9 @@ public class Movement : MonoBehaviour
 
     IEnumerator DoDash()
     {
+        if (SFXManager.Instance != null)
+            SFXManager.Instance.PlayDash();
+
         canDash = false;
         isDashing = true;
 

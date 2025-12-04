@@ -13,6 +13,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip enemyEliminatedClip;
     public AudioClip enemyDetectClip;
     public AudioClip dashClip;
+    public AudioClip playerHurtClip;
     public AudioClip enemyMovementClip; // clip corto para reproducir a intervalos
 
     private void Awake()
@@ -26,6 +27,8 @@ public class SFXManager : MonoBehaviour
     public void PlayEnemyEliminated() => PlayOnce(enemyEliminatedClip);
     public void PlayEnemyDetect() => PlayOnce(enemyDetectClip);
     public void PlayDash() => PlayOnce(dashClip);
+
+    public void PlayPlayerHurt() => PlayOnce(playerHurtClip);
 
     public void PlayOnce(AudioClip clip)
     {

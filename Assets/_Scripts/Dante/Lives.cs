@@ -57,6 +57,8 @@ public class Lives : MonoBehaviour
             currentLives--;
             refreshUI();
             Debug.Log("[Lives] Vida perdida. Vidas restantes: " + currentLives);
+            if (SFXManager.Instance != null)
+                SFXManager.Instance.PlayPlayerHurt();
 
             if (currentLives > 0)
             {
