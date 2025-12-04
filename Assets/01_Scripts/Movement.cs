@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
 
-    public Rigidbody2D rb { get; private set; }
+    public Rigidbody2D rgby { get; private set; }
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
     public Vector3 startingPosition { get; private set; }
@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rgby = GetComponent<Rigidbody2D>();
         startingPosition = transform.position;
         normalLayer = gameObject.layer; 
     }
@@ -51,7 +51,8 @@ public class Movement : MonoBehaviour
         direction = initialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        rgby.isKinematic = false;
+        rgby.bodyType = RigidbodyType2D.Dynamic;
         enabled = true;
     }
 
@@ -82,11 +83,12 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Vector2 position = rgby.position;
+        Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
+
+        rgby.MovePosition(position + translation);
         if (isDashing) return;
 
-        Vector2 position = rb.position;
-        Vector2 translation = speed * speedMultiplier * Time.fixedDeltaTime * direction;
-        rb.MovePosition(position + translation);
     }
 
     public void SetDirection(Vector2 direction, bool forced = false)
@@ -118,6 +120,9 @@ public class Movement : MonoBehaviour
 
     IEnumerator DoDash()
     {
+        if (SFXManager.Instance != null)
+            SFXManager.Instance.PlayDash();
+
         canDash = false;
         isDashing = true;
 
@@ -126,15 +131,15 @@ public class Movement : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer(dashLayerName);
 
-        float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0f;
+        float originalGravity = rgby.gravityScale;
+        rgby.gravityScale = 0f;
 
-        rb.linearVelocity = lastDirection * dashingPower;
+        rgby.linearVelocity = lastDirection * dashingPower;
 
         yield return new WaitForSeconds(dashingTime);
 
         tr.emitting = false;
-        rb.gravityScale = originalGravity;
+        rgby.gravityScale = originalGravity;
         isDashing = false;
 
         gameObject.layer = normalLayer;
